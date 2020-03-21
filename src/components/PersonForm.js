@@ -11,11 +11,11 @@ const PersonForm = ({
         <div className="PersonForm">
             <form>
                 <div>
-                    name:{" "}
+                    name:{""}
                     <input type="text" defaultValue={newName} onChange={handleNameChange} />
                 </div>
                 <div>
-                    number:{" "}
+                    number:{""}
                     <input type="text" defaultValue={newNumber} onChange={handleNumberChange} />
                 </div>
                 <div>

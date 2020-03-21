@@ -15,10 +15,10 @@ const App = () => {
     const [nameFilter, setNameFilter] = useState('');
 
     const handleNameChange = event => setNewName(event.target.value);
-    const handleNnmberChange = event => setNewNumber(event.target.value);
+    const handleNumberChange = event => setNewNumber(event.target.value);
     const handleFilterChange = event => setNameFilter(event.target.value);
 
-    const addPerson = (event) => {
+    const handleClick = (event) => {
         event.preventDefault();
         const newPerson = {
             name: newName,
@@ -29,8 +29,6 @@ const App = () => {
             window.alert(`${newName} is already added to phonebook`);
         } else {
             setPersons(persons.concat(newPerson));
-            setNewName('');
-            setNewNumber('');
         };
 
     }
@@ -51,8 +49,8 @@ const App = () => {
                 newName={newName}
                 handleNameChange={handleNameChange}
                 newNumber={newNumber}
-                handleNnmberChange={handleNnmberChange}
-                handleClick={addPerson}
+                handleNumberChange={handleNumberChange}
+                handleClick={handleClick}
             />
         
             <h2>Numbers</h2>
