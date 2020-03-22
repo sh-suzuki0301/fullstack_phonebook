@@ -5,11 +5,7 @@ import PersonForm from '../src/components/PersonForm.js';
 
 
 const App = () => { 
-    const [persons, setPersons] = useState([
-        { name: 'Arto Hellas', number:'000-0000-0000'},
-        { name: 'Bob Dyan', number:'111-1111-1111'},
-        { name: 'Chris Holl', number:'222-2222-2222'},
-    ]);
+    const [persons, setPersons] = useState([]);
     const [newName, setNewName] = useState('');
     const [newNumber,setNewNumber] = useState('');
     const [nameFilter, setNameFilter] = useState('');
