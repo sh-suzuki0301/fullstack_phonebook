@@ -1,0 +1,25 @@
+{
+    "persons": [
+        {
+            "name": "Arto Hellas",
+            "number": "040-123456",
+            "id": 1
+        },
+        {
+            "name": "Ada Lovelace",
+            "number": "39-44-535434",
+            "id": 2
+        },
+        {
+            "name": "Dan Dayo",
+            "number": "12-34-790523",
+            "id": 3
+        },
+        {
+            "name": "Mary Hitsuji",
+            "number": "39-12-098765",
+            "id": 4
+        }
+        
+    ]
+}
