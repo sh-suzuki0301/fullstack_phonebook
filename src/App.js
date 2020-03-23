@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Persons from '../src/components/Persons.js';
 import Filter from '../src/components/Filter.js';
 import PersonForm from '../src/components/PersonForm.js';
+import axios from 'axios';
 
 
 const App = () => { 
@@ -13,6 +14,16 @@ const App = () => {
     const handleNameChange = event => setNewName(event.target.value);
     const handleNumberChange = event => setNewNumber(event.target.value);
     const handleFilterChange = event => setNameFilter(event.target.value);
+
+    useEffect(() =>  {
+        console.log('effect');
+        axios
+            .get('http://localhost:3001/persons')
+            .then(response => {
+                console.log('promise fullfilled');
+                setPersons(response.data);
+            })
+    },[]);
 
     const handleClick = (event) => {
         event.preventDefault();
