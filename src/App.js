@@ -16,11 +16,9 @@ const App = () => {
     const handleFilterChange = event => setNameFilter(event.target.value);
 
     useEffect(() =>  {
-        console.log('effect');
         axios
             .get('http://localhost:3001/persons')
             .then(response => {
-                console.log('promise fullfilled');
                 setPersons(response.data);
             })
     },[]);
