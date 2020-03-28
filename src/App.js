@@ -5,7 +5,7 @@ import PersonForm from '../src/components/PersonForm.js';
 import axios from 'axios';
 import presonsSrevise from './services/persons.module';
 
-const { getData } = presonsSrevise;
+const { getData, deleteId, createPerson } = presonsSrevise;
 
 const App = () => { 
     const [persons, setPersons] = useState([]);
@@ -25,7 +25,13 @@ const App = () => {
         setPersons(await getData());
     }
 
-    const handleClick = (event) => {
+    const deletePerson = async ({ name, id}) => {
+        window.confirm(`Delete ${name}?`);
+        await deleteId(id);
+        getPersons();
+    }
+
+    const handleClick = async event => {
         event.preventDefault();
         const newPerson = {
             name: newName,
@@ -41,7 +47,8 @@ const App = () => {
         if (persons.some(p => p.name === newName)) {
             window.alert(`${newName} is already added to phonebook`);
         } else {
-            setPersons(persons.concat(newPerson));
+            const createdPerson = await createPerson(newPerson);
+            setPersons(persons.concat(createdPerson));
         };
 
     }
@@ -67,7 +74,7 @@ const App = () => {
             />
         
             <h2>Numbers</h2>
-            <Persons persons={filter(persons)} />  
+            <Persons persons={filter(persons)} handleDelete={deletePerson}/>  
         </div>
     )
 

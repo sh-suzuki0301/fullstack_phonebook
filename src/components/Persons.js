@@ -1,9 +1,10 @@
 import React from 'react';
 
-const Persons = ({ persons }) => {
-    const renderPersons = persons.map((p, id) => (
-        <div key={id}>
+const Persons = ({ persons, handleDelete }) => {
+    const renderPersons = persons.map((p) => (
+        <div key={p.id}>
             {p.name} {p.number}
+            <button onClick={() => handleDelete(p)}>delete</button>
         </div>
     ));
     return <div className="Persons">{renderPersons}</div>
