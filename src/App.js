@@ -3,7 +3,9 @@ import Persons from '../src/components/Persons.js';
 import Filter from '../src/components/Filter.js';
 import PersonForm from '../src/components/PersonForm.js';
 import axios from 'axios';
+import presonsSrevise from './services/persons.module';
 
+const { getData } = presonsSrevise;
 
 const App = () => { 
     const [persons, setPersons] = useState([]);
@@ -16,12 +18,12 @@ const App = () => {
     const handleFilterChange = event => setNameFilter(event.target.value);
 
     useEffect(() =>  {
-        axios
-            .get('http://localhost:3001/persons')
-            .then(response => {
-                setPersons(response.data);
-            })
+        getPersons();
     },[]);
+
+    const getPersons = async () => {
+        setPersons(await getData());
+    }
 
     const handleClick = (event) => {
         event.preventDefault();
