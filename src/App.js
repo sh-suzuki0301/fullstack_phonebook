@@ -5,7 +5,7 @@ import PersonForm from '../src/components/PersonForm.js';
 import axios from 'axios';
 import presonsSrevise from './services/persons.module';
 
-const { getData, deleteId, createPerson } = presonsSrevise;
+const { getData, deleteId, createPerson, updateId } = presonsSrevise;
 
 const App = () => { 
     const [persons, setPersons] = useState([]);
@@ -31,6 +31,14 @@ const App = () => {
         getPersons();
     }
 
+    const updatePerson = async (newPerson, id) => {
+        window.confirm(
+            `${newPerson.name} is already added to phonebook,replace the old number with a new one?`
+        );
+        await updateId(newPerson, id);
+        getData();
+    };
+
     const handleClick = async event => {
         event.preventDefault();
         const newPerson = {
@@ -38,14 +46,10 @@ const App = () => {
             number: newNumber,
         };
 
-        axios
-            .post('http://localhost:3001/persons',newPerson)
-            .then(response => {
-                setPersons(persons.concat(response.data));
-            });
-
         if (persons.some(p => p.name === newName)) {
-            window.alert(`${newName} is already added to phonebook`);
+            let id = persons.find(p => p.name === newName).id;
+            await updatePerson(newPerson, id);
+            getPersons();
         } else {
             const createdPerson = await createPerson(newPerson);
             setPersons(persons.concat(createdPerson));
