@@ -11,6 +11,7 @@ const App = () => {
     const [newName, setNewName] = useState('');
     const [newNumber,setNewNumber] = useState('');
     const [nameFilter, setNameFilter] = useState('');
+    const [notification, setNotification] = useState();
 
     const handleNameChange = event => setNewName(event.target.value);
     const handleNumberChange = event => setNewNumber(event.target.value);
@@ -34,8 +35,29 @@ const App = () => {
         window.confirm(
             `${newPerson.name} is already added to phonebook,replace the old number with a new one?`
         );
-        await updateId(newPerson, id);
+
+        const updatedPerson = await updateId(newPerson, id);
+        if (updatedPerson.error) {
+            setNotification({
+                type: "error",
+                message: updatedPerson.error
+            });
+            clearNotification();
+        } else {
+            setNotification({
+                type: "success",
+                message: `Updated ${newPerson.name}`
+            });
+            getPersons();
+            clearNotification();
+        }
         getData();
+    };
+
+    const clearNotification = () => {
+        setTimeout(() => {
+            setNotification(null);
+        }, 5000);
     };
 
     const handleClick = async event => {
@@ -47,14 +69,39 @@ const App = () => {
 
         if (persons.some(p => p.name === newName)) {
             let id = persons.find(p => p.name === newName).id;
-            await updatePerson(newPerson, id);
-            getPersons();
+            try {
+                await updatePerson(newPerson, id);
+            } catch (error) {
+                setNotification({
+                    type: "error",
+                    message: `Information of ${newPerson.name} has already been removed from server`
+                });
+                getPersons();
+                clearNotification();
+            }
         } else {
-            const createdPerson = await createPerson(newPerson);
-            setPersons(persons.concat(createdPerson));
-        };
+            try {
+                const createdPerson = await createPerson(newPerson);
+                if (createdPerson.error) {
+                    console.log(createdPerson.error);
+                    setNotification({
+                        type: "error",
+                        message: createdPerson.error
+                    });
+                } else {
+                    setPersons(persons.concat(createdPerson));
+                    setNotification({
+                        type: "success",
+                        message: `Add ${newPerson.name}`
+                    });
+                    clearNotification();
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
 
-    }
+    };
 
     const filter = persons => {
         return persons.filter(p =>
