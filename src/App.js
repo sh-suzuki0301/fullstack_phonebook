@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Persons from '../src/components/Persons.js';
 import Filter from '../src/components/Filter.js';
 import PersonForm from '../src/components/PersonForm.js';
-import axios from 'axios';
 import presonsSrevise from './services/persons.module';
 
 const { getData, deleteId, createPerson, updateId } = presonsSrevise;
