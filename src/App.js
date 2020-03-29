@@ -3,6 +3,7 @@ import Persons from '../src/components/Persons.js';
 import Filter from '../src/components/Filter.js';
 import PersonForm from '../src/components/PersonForm.js';
 import presonsSrevise from './services/persons.module';
+import Notification from './components/Notification';
 
 const { getData, deleteId, createPerson, updateId } = presonsSrevise;
 
@@ -112,6 +113,11 @@ const App = () => {
     return (
         <div>
             <h2>Phonebook</h2>
+            {notification ? (
+                <Notification notification={notification} />
+            ) : (
+                <div></div>
+            )}
             <Filter value={nameFilter} handleChange={handleFilterChange}/>
 
             <h2>add a new</h2>
