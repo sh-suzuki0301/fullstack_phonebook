@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = 'https://evening-shelf-39665.herokuapp.com/api/persons';
+const url = '/api/persons';
 
 const getData = async () => {
     const response = await axios.get(url);
