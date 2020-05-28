@@ -1,7 +1,4 @@
-Frontend code of Phonebook:
-https://evening-shelf-39665.herokuapp.com
-  
-by
+
 https://fullstackopen.com/en/
 
 
